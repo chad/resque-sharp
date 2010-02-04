@@ -1,0 +1,5 @@
+C:\Users\Chad\src\resque-sharp\resque-sharp\bin\Debug\resque-sharp.dll
+C:\Users\Chad\src\resque-sharp\resque-sharp\bin\Debug\resque-sharp.pdb
+C:\Users\Chad\src\resque-sharp\resque-sharp\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Chad\src\resque-sharp\resque-sharp\obj\Debug\resque-sharp.dll
+C:\Users\Chad\src\resque-sharp\resque-sharp\obj\Debug\resque-sharp.pdb

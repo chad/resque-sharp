@@ -1,0 +1,9 @@
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\tests.dll
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\tests.pdb
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\NMock2.dll
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\nunit.framework.dll
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\resque-sharp.dll
+C:\Users\Chad\src\resque-sharp\tests\bin\Debug\resque-sharp.pdb
+C:\Users\Chad\src\resque-sharp\tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Chad\src\resque-sharp\tests\obj\Debug\tests.dll
+C:\Users\Chad\src\resque-sharp\tests\obj\Debug\tests.pdb

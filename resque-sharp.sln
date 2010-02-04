@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual C# Express 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "resque-sharp", "resque-sharp\resque-sharp.csproj", "{27BE6022-29AF-4958-888A-4CF25B39ABC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{8EC0EA5D-2834-400A-B059-E36E06CF74F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27BE6022-29AF-4958-888A-4CF25B39ABC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27BE6022-29AF-4958-888A-4CF25B39ABC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27BE6022-29AF-4958-888A-4CF25B39ABC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27BE6022-29AF-4958-888A-4CF25B39ABC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC0EA5D-2834-400A-B059-E36E06CF74F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC0EA5D-2834-400A-B059-E36E06CF74F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC0EA5D-2834-400A-B059-E36E06CF74F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC0EA5D-2834-400A-B059-E36E06CF74F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Chad\src\resque-sharp\tests\bin\Release\tests.dll" total="2" errors="1" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-02-04" time="16:08:03">
+  <environment nunit-version="2.5.3.9345" clr-version="2.0.50727.4927" os-version="Microsoft Windows NT 6.1.7600.0" platform="Win32NT" cwd="C:\Users\Chad\src\resque-sharp\ext\nunit-2.5.3.9345\bin" machine-name="OWNER-PC" user="Chad" user-domain="owner-PC" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="C:\Users\Chad\src\resque-sharp\tests\bin\Release\tests.dll" executed="True" success="False" time="0.768" asserts="0">
+    <results>
+      <test-suite name="resque" executed="True" success="False" time="0.751" asserts="0">
+        <results>
+          <test-suite name="ResqueTest" executed="True" success="False" time="0.748" asserts="0">
+            <results>
+              <test-case name="resque.ResqueTest.CanGrabJobsOffAQueue" executed="True" success="False" time="0.675" asserts="1">
+                <failure>
+                  <message><![CDATA[System.InvalidCastException : Unable to cast object of type 'Newtonsoft.Json.Linq.JArray' to type 'System.Object[]'.]]></message>
+                  <stack-trace><![CDATA[at resque.Job.args() in C:\Users\Chad\src\resque-sharp\resque-sharp\Job.cs:line 50
+at resque.ResqueTest.CanGrabJobsOffAQueue() in C:\Users\Chad\src\resque-sharp\tests\ResqueTest.cs:line 33
+]]></stack-trace>
+                </failure>
+              </test-case>
+              <test-case name="resque.ResqueTest.CanPutJobsOnAQueue" executed="True" success="True" time="0.045" asserts="2" />
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
