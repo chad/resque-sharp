@@ -22,8 +22,8 @@ Once you've made your great commits:
 
 h1. Author
 
-Chad Fowler
+"Chad Fowler":http://chadfowler.com
 chad@chadfowler.com
-@chadfowler
+"@chadfowler":http://twitter.com/chadfowler
 
 
