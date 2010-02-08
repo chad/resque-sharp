@@ -113,6 +113,17 @@ namespace resque
             Assert.That(Resque.Pop("people"), Is.Null);
         }
 
+        [Test]
+        public void KnowsHowBigAQueueIs()
+        {
+            Assert.That(Resque.size("people"), Is.EqualTo(3));
+            Assert.That("chris", Is.EqualTo(((Dictionary<string, object>)Resque.Pop("people"))["name"]));
+            Assert.That(Resque.size("people"), Is.EqualTo(2));
+            Resque.Pop("people");
+            Resque.Pop("people");
+            Assert.That(Resque.size("people"), Is.EqualTo(0));
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);
