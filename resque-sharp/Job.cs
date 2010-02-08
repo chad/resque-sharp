@@ -101,6 +101,10 @@ namespace resque
     // FIXME: These shouldn't have to be here. Need to figure out how to cleanly load from multiple assemblies dynamically
     public class DummyJob
     {
+        public static string queue()
+        {
+            return "tester";
+        }
         //public DummyJob(string queue, Dictionary<string,object> dictionary) : base(queue, dictionary)
         //{
           
@@ -109,7 +113,10 @@ namespace resque
     }
     public class NotDummyJob
     {
- 
+        public static string queue()
+        {
+            return "tester";
+        }
     }
 
 }

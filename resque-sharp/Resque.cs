@@ -60,5 +60,18 @@ namespace resque
         {
             return (Dictionary<string,object>)decode(redis().LeftPop("queue:" + queue));
         }
+
+        public static int size(string queue)
+        {
+            return redis().ListLength("queue:" + queue);
+        }
+
+        public static bool enqueue(string className, params object[] args)
+        {
+            Type workerType = Type.GetType(className);
+            System.Reflection.MethodInfo methodInfo = workerType.GetMethod("queue", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.FlattenHierarchy);
+            string queue = (string)methodInfo.Invoke(null, null);
+            return Job.create(queue, className, args);
+        }
     }
 }

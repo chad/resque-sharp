@@ -15,6 +15,7 @@ namespace resque
         public void Init()
         {
             new Redis("192.168.1.119", 6379).FlushAll();
+            Resque.setRedis(new Redis("192.168.1.119", 6379));
         }
         [Test]
         public void CanPutJobsOnAQueue()
@@ -26,7 +27,6 @@ namespace resque
         [Test]
         public void CanGrabJobsOffAQueue()
         {
-            Resque.setRedis(new Redis("192.168.1.119", 6379)); // FIXME
             //Job.create("jobs", "dummy-job", 20, "/tmp"); FIXME NEED TO DEAL WITH THIS
             Job.create("jobs", "resque.DummyJob", 20, "/tmp");
             Job job = Resque.Reserve("jobs");
@@ -44,6 +44,28 @@ namespace resque
             job.recreate();
             Assert.That(job, Is.EqualTo(Resque.Reserve("jobs")));
         }
+
+        [Test]
+        public void CanAskResqueForQueueSize()
+        {
+            Assert.That(0, Is.EqualTo(Resque.size("a_queue")));
+            Job.create("a_queue", "resque.DummyJob", 1, "asdf");
+            Assert.That(1, Is.EqualTo(Resque.size("a_queue")));
+        }
+
+        [Test]
+        public void CanPutJobsOnTheQueueByAskingWhichQueueTheyAreInterestedIn()
+        {
+            Assert.That(0, Is.EqualTo(Resque.size("tester")));
+            Assert.IsTrue(Resque.enqueue("resque.DummyJob", 20, "/tmp"));
+            Assert.IsTrue(Resque.enqueue("resque.DummyJob", 20, "/tmp"));
+
+            Job job = Resque.Reserve("tester");
+
+            Assert.That(20, Is.EqualTo(job.args()[0]));
+            Assert.That("/tmp", Is.EqualTo(job.args()[1]));
+        }
+
 
         [Test]
         public void CanTestForEquality()
