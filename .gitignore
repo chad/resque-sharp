@@ -1,0 +1,5 @@
+*.user
+*.swp
+*.suo
+resque-sharp/bin
+resque-sharp/obj
