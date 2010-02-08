@@ -6,7 +6,7 @@ h1. Resque-Sharp
 
 h1. Dependencies
 
-You'll need JSON.NET and redis-sharp. I'll see about bundling those in this repo time-permitting. 
+You'll need "JSON.NET":http://james.newtonking.com/projects/json-net.aspx and "redis-sharp":http://github.com/migueldeicaza/redis-sharp. I'll see about bundling those in this repo time-permitting. 
 
 h1. Contributing
 
