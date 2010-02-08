@@ -30,7 +30,7 @@ namespace resque
             Dictionary<String,Object> dictionary = new Dictionary<String,Object>();
             dictionary.Add("class", className);
             dictionary.Add("args", args);
-            Resque.push(queue, dictionary);
+            Resque.Push(queue, dictionary);
             return true;
         }
 

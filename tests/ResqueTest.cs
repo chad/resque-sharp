@@ -16,6 +16,9 @@ namespace resque
         {
             new Redis("192.168.1.119", 6379).FlushAll(); // This is the IP address of my computer running Redis. 
             Resque.setRedis(new Redis("192.168.1.119", 6379));
+            Resque.Push("people", new Dictionary<string, string>(){{"name", "chris"}});
+            Resque.Push("people", new Dictionary<string, string>(){ {"name", "bob"}});
+            Resque.Push("people", new Dictionary<string, string>(){  {"name", "mark"}});
         }
         [Test]
         public void CanPutJobsOnAQueue()
@@ -98,7 +101,16 @@ namespace resque
         {
             Dictionary<string, string> person = new Dictionary<string, string>();
             person.Add("name", "chris");
-            Assert.That(Resque.push("people", person), Is.True);
+            Assert.That(Resque.Push("people", person), Is.True);
+        }
+
+        [Test]
+        public void CanPullItemsOffAQueue()
+        {
+            Assert.That("chris", Is.EqualTo(((Dictionary<string,object>)Resque.Pop("people"))["name"]));
+            Assert.That("bob", Is.EqualTo(((Dictionary<string, object>)Resque.Pop("people"))["name"]));
+            Assert.That("mark", Is.EqualTo(((Dictionary<string, object>)Resque.Pop("people"))["name"]));
+            Assert.That(Resque.Pop("people"), Is.Null);
         }
 
         internal void EnqueueUninferrableJob()

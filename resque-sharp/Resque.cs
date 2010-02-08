@@ -26,11 +26,24 @@ namespace resque
             return staticRedis;
         }
 
-        public static bool push(string queue, object item)
+        public static bool Push(string queue, object item)
         {
             watchQueue(queue);
             redis().RightPush("queue:" + queue, encode(item));
             return true;
+        }
+
+        public static Dictionary<string, object> Pop(string queue)
+        {
+            var data = redis().LeftPop("queue:" + queue);
+            if (data == null)
+            {
+                return null;
+            }
+            else
+            {
+                return (Dictionary<string, object>)decode(data);
+            }
         }
 
         private static void watchQueue(string queue)
@@ -59,10 +72,6 @@ namespace resque
         }
 
 
-        internal static Dictionary<string,object> Pop(string queue)
-        {
-            return (Dictionary<string,object>)decode(redis().LeftPop("queue:" + queue));
-        }
 
         public static int size(string queue)
         {
@@ -80,5 +89,6 @@ namespace resque
                 throw new NoQueueError();
             return Job.create(queue, className, args);
         }
+
     }
 }
