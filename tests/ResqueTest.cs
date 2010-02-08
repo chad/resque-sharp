@@ -36,5 +36,32 @@ namespace resque
             Assert.That("/tmp", Is.EqualTo(job.args()[1]));
         }
 
+        //[Test]
+        //public void CanReQueueJobs()
+        //{
+        //    Job.create("jobs", "resque.DummyJob", 20, "/tmp");
+        //    Job job = Resque.Reserve("jobs");
+        //    job.recreate();
+        //    Assert.That(job, Is.EqualTo(Resque.Reserve("jobs")));
+        //}
+
+        [Test]
+        public void CanTestForEquality()
+        {
+            Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 20, "/tmp"));
+            Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 20, "/tmp"));
+            //Assert.IsTrue(Job.create("jobs", "dummy-job", 20, "/tmp"));  NEED TO  MAKE THIS WORK
+            Assert.That(Resque.Reserve("jobs"), Is.EqualTo(Resque.Reserve("jobs")));
+
+            Assert.IsTrue(Job.create("jobs", "resque.NotDummyJob", 20, "/tmp"));
+            Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 20, "/tmp"));
+            Assert.That(Resque.Reserve("jobs"), Is.Not.EqualTo(Resque.Reserve("jobs")));
+
+            Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 20, "/tmp"));
+            Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 30, "/tmp"));
+            Assert.That(Resque.Reserve("jobs"), Is.Not.EqualTo(Resque.Reserve("jobs")));
+
+        }
+
     }
 }

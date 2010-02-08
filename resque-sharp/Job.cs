@@ -59,16 +59,57 @@ namespace resque
                 }
                return list;
             }
-            
 
+
+
+        public void recreate()
+        {
+            Job.create(queue, PayloadClass().FullName, args());
+        }
+        public override bool Equals(object other)
+        {
+            if (other == null)
+                return false;
+            if (object.ReferenceEquals(this, other))
+                return true;
+            if (this.GetType() != other.GetType())
+                return false;
+            Job job = (Job)other;
+            return (this.queue == job.queue && this.PayloadClass() == job.PayloadClass() && arrayListElementsAreEqual(args(), job.args()));
+        }
+
+        private bool arrayListElementsAreEqual(ArrayList list, ArrayList otherList)
+        {
+            if (list.Count != otherList.Count)
+            {
+                return false;
+            }
+            int i = 0;
+            foreach (object o in list)
+            {
+                if (!o.Equals(otherList[i]))
+                {
+                    return false;
+                }
+                i++;
+            }
+            return true;
+        }
     }
 
-    public class DummyJob : Job
+
+    // FIXME: These shouldn't have to be here. Need to figure out how to cleanly load from multiple assemblies dynamically
+    public class DummyJob
     {
-        public DummyJob(string queue, Dictionary<string,object> dictionary) : base(queue, dictionary)
-        {
+        //public DummyJob(string queue, Dictionary<string,object> dictionary) : base(queue, dictionary)
+        //{
           
-        }
+        //}
         // for testing
     }
+    public class NotDummyJob
+    {
+ 
+    }
+
 }
