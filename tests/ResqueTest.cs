@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Newtonsoft.Json.Linq;
 
 namespace resque
 {
@@ -30,9 +31,9 @@ namespace resque
             Job.create("jobs", "resque.DummyJob", 20, "/tmp");
             Job job = Resque.Reserve("jobs");
             Assert.AreEqual("resque.DummyJob", job.PayloadClass().FullName);
-          //  Assert.AreEqual("foo", job.args()[0].GetType());
-            int num = (int)job.args()[0];
+            var num = job.args()[0];
             Assert.AreEqual(20, num);
+            Assert.That("/tmp", Is.EqualTo(job.args()[1]));
         }
 
     }

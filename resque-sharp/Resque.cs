@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace resque
 {
@@ -42,7 +43,7 @@ namespace resque
 
         private static object decode(string json)
         {
-            return JsonConvert.DeserializeObject<Dictionary<string,object>>(json);
+             return JsonConvert.DeserializeObject<Dictionary<string,object>>(json);
         }
         private static object decode(byte[] json)
         {

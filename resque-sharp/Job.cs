@@ -53,9 +53,9 @@ namespace resque
         {
             ArrayList list = new ArrayList();
             JArray args = (JArray)payload["args"];
-                foreach (object o in args)
+                foreach (JValue o in args)
                 {
-                    list.Add(o);
+                    list.Add(o.Value);
                 }
                return list;
             }
