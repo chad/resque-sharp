@@ -1,0 +1,29 @@
+h1. Resque-Sharp
+
+
+.NET implementation of Chris Wanstrath's "Resque":http://github.com/defunkt/resque, which is a Redis-based background processing framework.
+
+
+h1. Dependencies
+
+You'll need JSON.NET and redis-sharp. I'll see about bundling those in this repo time-permitting. 
+
+h1. Contributing
+
+This is just getting started and still bit of a mess. The VC# project needs to be cleaned up to point to relative paths for references, etc.  Contributions are very welcome. 
+
+Once you've made your great commits:
+
+1. "Fork"http://help.github.com/forking/ resque-sharp
+2. Create a topic branch - `git checkout -b my_branch`
+3. Push to your branch - `git push origin my_branch`
+4. Create an "Issue":http://github.com/chad/resque-sharp/issues with a link to your branch
+5. That's it!
+
+h1. Author
+
+Chad Fowler
+chad@chadfowler.com
+@chadfowler
+
+
