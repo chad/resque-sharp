@@ -4,6 +4,10 @@ h1. Resque-Sharp
 .NET implementation of Chris Wanstrath's "Resque":http://github.com/defunkt/resque, which is a Redis-based background processing framework.
 
 
+h1. Why?
+
+Some jobs need to be run on Windows using .NET code. Some need to run in pure Ruby on UNIX. Some need to run in Java/JRuby. Now we can do all of the above with one job processing framework.
+
 h1. Dependencies
 
 You'll need "JSON.NET":http://james.newtonking.com/projects/json-net.aspx and "redis-sharp":http://github.com/migueldeicaza/redis-sharp. I'll see about bundling those in this repo time-permitting. 
