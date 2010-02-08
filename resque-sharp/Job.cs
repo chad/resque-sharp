@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace resque
 {
@@ -45,10 +49,18 @@ namespace resque
             //return (Job)Activator.CreateInstance(type);
         }
 
-        public object[] args()
+        public ArrayList args()
         {
-            return (object[])payload["args"];
-        }
+            ArrayList list = new ArrayList();
+            JArray args = (JArray)payload["args"];
+                foreach (object o in args)
+                {
+                    list.Add(o);
+                }
+               return list;
+            }
+            
+
     }
 
     public class DummyJob : Job

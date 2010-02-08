@@ -30,7 +30,9 @@ namespace resque
             Job.create("jobs", "resque.DummyJob", 20, "/tmp");
             Job job = Resque.Reserve("jobs");
             Assert.AreEqual("resque.DummyJob", job.PayloadClass().FullName);
-            Assert.AreEqual(20, job.args()[0]);
+          //  Assert.AreEqual("foo", job.args()[0].GetType());
+            int num = (int)job.args()[0];
+            Assert.AreEqual(20, num);
         }
 
     }
