@@ -64,7 +64,7 @@ namespace resque
 
         public void recreate()
         {
-            Job.create(queue, PayloadClass().FullName, args());
+            Job.create(queue, PayloadClass().FullName, args().ToArray());
         }
         public override bool Equals(object other)
         {
