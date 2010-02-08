@@ -124,6 +124,13 @@ namespace resque
             Assert.That(Resque.size("people"), Is.EqualTo(0));
         }
 
+        [Test]
+        public void CanPeekAtAQueue()
+        {
+            Assert.That("chris", Is.EqualTo(((Dictionary<string, object>)Resque.Peek("people"))["name"]));
+            Assert.That(Resque.size("people"), Is.EqualTo(3));
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);

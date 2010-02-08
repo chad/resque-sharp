@@ -36,14 +36,15 @@ namespace resque
         public static Dictionary<string, object> Pop(string queue)
         {
             var data = redis().LeftPop("queue:" + queue);
-            if (data == null)
-            {
-                return null;
-            }
-            else
-            {
-                return (Dictionary<string, object>)decode(data);
-            }
+            return decodeData(data);
+        }
+
+
+
+        public static Dictionary<string, object> Peek(string queue)
+        {
+            var data = redis().ListIndex("queue:" + queue, 0);
+            return decodeData(data);
         }
 
         private static void watchQueue(string queue)
@@ -51,20 +52,7 @@ namespace resque
             redis().AddToSet("queues", "queue");
         }
 
-  
-        private static string encode(object item)
-        {
-            return JsonConvert.SerializeObject(item);
-        }
 
-        private static object decode(string json)
-        {
-             return JsonConvert.DeserializeObject<Dictionary<string,object>>(json);
-        }
-        private static object decode(byte[] json)
-        {
-            return decode(Encoding.UTF8.GetString(json));
-        }
 
         public static Job Reserve(string queue)
         {
@@ -89,6 +77,34 @@ namespace resque
                 throw new NoQueueError();
             return Job.create(queue, className, args);
         }
+
+        #region encoding
+        private static string encode(object item)
+        {
+            return JsonConvert.SerializeObject(item);
+        }
+
+        private static object decode(string json)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+        }
+        private static object decode(byte[] json)
+        {
+            return decode(Encoding.UTF8.GetString(json));
+        }
+
+        private static Dictionary<string, object> decodeData(byte[] data)
+        {
+            if (data == null)
+            {
+                return null;
+            }
+            else
+            {
+                return (Dictionary<string, object>)decode(data);
+            }
+        }
+        #endregion
 
     }
 }
