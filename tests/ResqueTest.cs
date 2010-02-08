@@ -93,6 +93,14 @@ namespace resque
                 );
         }
 
+        [Test]
+        public void CanPutItemsOnAQueue()
+        {
+            Dictionary<string, string> person = new Dictionary<string, string>();
+            person.Add("name", "chris");
+            Assert.That(Resque.push("people", person), Is.True);
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);
