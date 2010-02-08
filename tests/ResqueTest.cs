@@ -14,7 +14,7 @@ namespace resque
         [SetUp]
         public void Init()
         {
-            new Redis("192.168.1.119", 6379).FlushAll();
+            new Redis("192.168.1.119", 6379).FlushAll(); // This is the IP address of my computer running Redis. 
             Resque.setRedis(new Redis("192.168.1.119", 6379));
         }
         [Test]
@@ -83,6 +83,19 @@ namespace resque
             Assert.IsTrue(Job.create("jobs", "resque.DummyJob", 30, "/tmp"));
             Assert.That(Resque.Reserve("jobs"), Is.Not.EqualTo(Resque.Reserve("jobs")));
 
+        }
+
+        [Test]
+        public void QueueMustBeInferrable() {
+            Assert.That(
+                new TestDelegate(EnqueueUninferrableJob), 
+                Throws.TypeOf<resque.NoQueueError>()
+                );
+        }
+
+        internal void EnqueueUninferrableJob()
+        {
+            Resque.enqueue("resque.UninferrableInvalidJob", 123);
         }
 
     }

@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace resque
 {
+    public class NoQueueError : Exception
+    {
+    }
     public class Resque
     {
         private static Redis staticRedis;
@@ -70,7 +73,11 @@ namespace resque
         {
             Type workerType = Type.GetType(className);
             System.Reflection.MethodInfo methodInfo = workerType.GetMethod("queue", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.FlattenHierarchy);
+            if(methodInfo == null)
+                throw new NoQueueError();
             string queue = (string)methodInfo.Invoke(null, null);
+            if (queue == null || queue.Equals(""))
+                throw new NoQueueError();
             return Job.create(queue, className, args);
         }
     }

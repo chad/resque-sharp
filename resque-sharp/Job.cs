@@ -119,4 +119,8 @@ namespace resque
         }
     }
 
+    public class UninferrableInvalidJob
+    {
+    }
+
 }
