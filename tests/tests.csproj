@@ -43,10 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ext\nunit-2.5.3.9345\bin\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="RedisSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\redis-sharp\bin\Release\RedisSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

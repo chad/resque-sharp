@@ -136,8 +136,7 @@ namespace resque
         public void CanPeekAtMultipleItemsOnQueue()
         {
             ArrayList result = Resque.Peek("people", 1, 1);
-            Assert.That("ooo", Is.Empty);
-            Assert.That("bobs", Is.EqualTo((((Dictionary<string, object>)result[0]))["name"]));
+            Assert.That("bob", Is.EqualTo((((Dictionary<string, object>)result[0]))["name"]));
         }
         internal void EnqueueUninferrableJob()
         {

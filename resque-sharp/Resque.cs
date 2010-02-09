@@ -30,7 +30,6 @@ namespace resque
         public static bool Push(string queue, object item)
         {
             watchQueue(queue);
-            throw new Exception("PUshing " + item.ToString() + " to queue "+ queue);
             redis().RightPush("queue:" + queue, encode(item));
             return true;
         }
