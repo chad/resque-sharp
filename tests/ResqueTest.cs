@@ -167,6 +167,16 @@ namespace resque
             Assert.That(Resque.queues(), Is.EqualTo(new string[0]));
         }
 
+        [Test]
+        public void CanDeleteAQueue()
+        {
+            Resque.Push("cars", new Dictionary<string, string>() { { "make", "bmw" } });
+            Assert.That(Resque.queues(), Is.EqualTo(new string[2] { "cars", "people" }));
+            Resque.RemoveQueue("people");
+            Assert.That(Resque.queues(), Is.EqualTo(new string[1] { "cars" }));
+        }
+
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);

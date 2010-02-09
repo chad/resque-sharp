@@ -76,6 +76,12 @@ namespace resque
             return results;
         }
 
+        public static void RemoveQueue(string queue)
+        {
+            redis().RemoveFromSet("queues", Encoding.UTF8.GetBytes(queue));
+            redis().Remove("queue:" + queue);
+        }
+
         private static void watchQueue(string queue)
         {
             redis().AddToSet("queues", queue);
