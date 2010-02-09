@@ -9,9 +9,10 @@ using System.Text.RegularExpressions;
 
 namespace resque
 {
-    public class NoQueueError : Exception
-    {
-    }
+    public class NoQueueError : Exception { }
+
+    public class NoClassError : Exception { }
+
     public class Resque
     {
         private static Redis staticRedis;

@@ -27,10 +27,11 @@ namespace resque
 
         public static bool create(string queue, string className, params object[] args)
         {
-            Dictionary<String,Object> dictionary = new Dictionary<String,Object>();
-            dictionary.Add("class", className);
-            dictionary.Add("args", args);
-            Resque.Push(queue, dictionary);
+            if (String.IsNullOrEmpty(className))
+            {
+                throw new NoClassError();
+            }
+            Resque.Push(queue, new Dictionary<String, Object>(){{"class", className}, {"args", args}});
             return true;
         }
 

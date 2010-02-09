@@ -181,10 +181,23 @@ namespace resque
             Assert.That(Resque.keys(), Is.EqualTo(new string[2]{"queue:people", "queues"}));
         }
 
+        [Test]
+
+        public void BadlyWantsAClassName()
+        {
+            Assert.That(
+               new TestDelegate(TryToCreateJobWithNoClassName),
+               Throws.TypeOf<resque.NoClassError>()
+              );
+        }
 
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);
+        }
+
+        internal void TryToCreateJobWithNoClassName() {
+            Job.create("jobs", null);
         }
 
     }
