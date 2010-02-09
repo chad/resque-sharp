@@ -176,6 +176,11 @@ namespace resque
             Assert.That(Resque.queues(), Is.EqualTo(new string[1] { "cars" }));
         }
 
+        [Test]
+        public void KeepsTrackOfResqueKeys() {
+            Assert.That(Resque.keys(), Is.EqualTo(new string[2]{"queue:people", "queues"}));
+        }
+
 
         internal void EnqueueUninferrableJob()
         {
