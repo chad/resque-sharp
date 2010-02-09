@@ -32,18 +32,5 @@ namespace resque
             worker.work(0, (Job Job) => {Assert.That(worker.IsWorking(), Is.True); return true;});
         }
 
-        [Test]
-        public void CanDoLambdaDambdaDingDong()
-        {
-            Assert.That(
-                foo(x => x.ToUpper()),
-                Is.EqualTo("LOL")
-                );
-            foo((string x) => { Assert.That(x, Is.EqualTo("lol")); return "blah"; });
-        }
-
-        public string foo(Func<string, string> rocker) {
-            return rocker("lol");
-        }
     }
 }

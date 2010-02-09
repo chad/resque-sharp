@@ -103,6 +103,8 @@ namespace resque
 
         internal void fail(Exception e)
         {
+            throw e;
+            throw new Exception("O HAI");
             throw new NotImplementedException();
         }
     }
@@ -114,6 +116,10 @@ namespace resque
         public static string queue()
         {
             return "tester";
+        }
+        public static void perform(params object[] args)
+        {
+            Console.WriteLine("This is the dummy job reporting in");
         }
         //public DummyJob(string queue, Dictionary<string,object> dictionary) : base(queue, dictionary)
         //{
@@ -127,6 +133,10 @@ namespace resque
         {
             return "tester";
         }
+        public static void perform(params object[] args)
+        {
+            Console.WriteLine("This is the not dummy job reporting in");
+        }
     }
 
     public class BadJob
@@ -135,7 +145,7 @@ namespace resque
         {
             return "tester";
         }
-        public static string perform()
+        public static void perform(params object[] args)
         {
             throw new Exception("Bad Job!!");
         }

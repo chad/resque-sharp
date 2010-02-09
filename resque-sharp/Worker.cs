@@ -48,7 +48,10 @@ namespace resque
 
         private void unregisterWorker()
         {
-            throw new NotImplementedException();
+            setDoneWorking();
+            Resque.redis().RemoveFromSet("resque:workers", workerId());
+            Resque.redis().Remove("worker:" + workerId() + ":started");
+            // FIXME clear stats
         }
 
         private void process(Job job, Func<Job, bool> block)
@@ -75,7 +78,7 @@ namespace resque
 
         private void setFailed()
         {
-            throw new NotImplementedException();
+            // FIXME
         }
 
         private void setWorkingOn(Job job)
@@ -87,7 +90,13 @@ namespace resque
 
         private void setDoneWorking()
         {
-            throw new NotImplementedException();
+            setProcssed();
+            Resque.redis().Remove("resque:worker:" + workerId());
+        }
+
+        private void setProcssed()
+        {
+            //FIXME
         }
 
         private void startup()
