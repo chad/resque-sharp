@@ -148,9 +148,17 @@ namespace resque
 
             result = Resque.Peek("people", 2, 1);
             Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("mark"));
-//TODO
             Assert.That(Resque.Peek("people", 3), Is.Null);
         }
+
+        [Test]
+        public void KnowsWhatQuestsItIsManaging()
+        {
+            Assert.That(Resque.queues(), Is.EqualTo(new string[1]{"people"}));
+            Resque.Push("cars", new Dictionary<string, string>(){{"make", "bmw"}});
+            Assert.That(Resque.queues(), Is.EqualTo(new string[2] {"cars", "people" }));
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);

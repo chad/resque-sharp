@@ -78,7 +78,20 @@ namespace resque
 
         private static void watchQueue(string queue)
         {
-            redis().AddToSet("queues", "queue");
+            redis().AddToSet("queues", queue);
+        }
+
+        public static string[] queues()
+        {
+            byte[][] rawResults = redis().GetMembersOfSet("queues");
+            string[] results = new string[rawResults.Length];
+            int i = 0;
+            foreach (byte[] data in rawResults)
+            {
+                results[i] = Encoding.UTF8.GetString(data);
+                i++;
+            }
+            return results;
         }
 
 
@@ -106,6 +119,7 @@ namespace resque
                 throw new NoQueueError();
             return Job.create(queue, className, args);
         }
+
 
         #region encoding
         private static string encode(object item)
