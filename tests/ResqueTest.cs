@@ -18,8 +18,8 @@ namespace resque
             new Redis("192.168.1.119", 6379).FlushAll(); // This is the IP address of my computer running Redis. 
             Resque.setRedis(new Redis("192.168.1.119", 6379));
             Resque.Push("people", new Dictionary<string, string>(){{"name", "chris"}});
-            Resque.Push("people", new Dictionary<string, string>(){ {"name", "bob"}});
-            Resque.Push("people", new Dictionary<string, string>(){  {"name", "mark"}});
+            Resque.Push("people", new Dictionary<string, string>(){{"name", "bob"}});
+            Resque.Push("people", new Dictionary<string, string>(){{"name", "mark"}});
         }
         [Test]
         public void CanPutJobsOnAQueue()
@@ -137,6 +137,19 @@ namespace resque
         {
             ArrayList result = Resque.Peek("people", 1, 1);
             Assert.That("bob", Is.EqualTo((((Dictionary<string, object>)result[0]))["name"]));
+            
+            result = Resque.Peek("people", 1, 2);
+            Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("bob"));
+            Assert.That(((Dictionary<string, object>)result[1])["name"], Is.EqualTo("mark"));
+
+            result = Resque.Peek("people", 0, 2);
+            Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("chris"));
+            Assert.That(((Dictionary<string, object>)result[1])["name"], Is.EqualTo("bob"));
+
+            result = Resque.Peek("people", 2, 1);
+            Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("mark"));
+//TODO
+            //Assert.That(Resque.Peek("people", 3), Is.Null);
         }
         internal void EnqueueUninferrableJob()
         {

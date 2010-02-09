@@ -50,7 +50,8 @@ namespace resque
 
         public static Dictionary<string, object> Peek(string queue, int start)
         {
-            return decodeData(redis().ListRange("queue:" + queue, start, 1)[0]);
+            var resultData = redis().ListRange("queue:" + queue, start, start);
+            return decodeData(resultData[0]);
         }
 
         public static ArrayList Peek(string queue, int start, int count)
