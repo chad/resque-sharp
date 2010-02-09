@@ -182,13 +182,19 @@ namespace resque
         }
 
         [Test]
-
         public void BadlyWantsAClassName()
         {
             Assert.That(
                new TestDelegate(TryToCreateJobWithNoClassName),
                Throws.TypeOf<resque.NoClassError>()
               );
+        }
+
+        [Test]
+        public void KeepsStats()
+        {
+            Job.create("jobs", "resque.DummyJob", 20, "/tmp");
+
         }
 
         internal void EnqueueUninferrableJob()

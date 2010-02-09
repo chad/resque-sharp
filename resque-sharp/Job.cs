@@ -11,9 +11,9 @@ namespace resque
 {
     public class Job
     {
-        Dictionary<string, object> payload;
-        string queue;
-
+        public Dictionary<string, object> payload { get; set; }
+        public string queue { get; set; }
+        public Worker worker{get; set;}
         public Job(string queue, Dictionary<string, object> payload)
         {
             this.queue = queue;
@@ -46,8 +46,12 @@ namespace resque
 
         internal void perform()
         {
-            //Type type = Type.GetType("resque.DummyJob", true);
-            //return (Job)Activator.CreateInstance(type);
+
+            System.Reflection.MethodInfo methodInfo = PayloadClass().GetMethod("perform", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.FlattenHierarchy);
+            if (methodInfo == null)
+                throw new NotImplementedException();
+            methodInfo.Invoke(null, args().ToArray());
+
         }
 
         public ArrayList args()
@@ -96,6 +100,11 @@ namespace resque
             }
             return true;
         }
+
+        internal void fail(Exception e)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 
@@ -119,6 +128,19 @@ namespace resque
             return "tester";
         }
     }
+
+    public class BadJob
+    {
+        public static string queue()
+        {
+            return "tester";
+        }
+        public static string perform()
+        {
+            throw new Exception("Bad Job!!");
+        }
+    }
+
 
     public class UninferrableInvalidJob
     {

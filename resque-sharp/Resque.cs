@@ -141,16 +141,16 @@ namespace resque
 
 
         #region encoding
-        private static string encode(object item)
+        public static string encode(object item)
         {
             return JsonConvert.SerializeObject(item);
         }
 
-        private static object decode(string json)
+        public static object decode(string json)
         {
             return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
         }
-        private static object decode(byte[] json)
+        public static object decode(byte[] json)
         {
             return decode(Encoding.UTF8.GetString(json));
         }
