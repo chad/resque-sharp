@@ -84,6 +84,8 @@ namespace resque
         public static string[] queues()
         {
             byte[][] rawResults = redis().GetMembersOfSet("queues");
+            if (rawResults.Length == 0)
+                return new string[0];
             string[] results = new string[rawResults.Length];
             int i = 0;
             foreach (byte[] data in rawResults)

@@ -159,6 +159,14 @@ namespace resque
             Assert.That(Resque.queues(), Is.EqualTo(new string[2] {"cars", "people" }));
         }
 
+
+        [Test]
+        public void QueuesAreAlwaysAList()
+        {
+            Resque.redis().FlushAll();
+            Assert.That(Resque.queues(), Is.EqualTo(new string[0]));
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);

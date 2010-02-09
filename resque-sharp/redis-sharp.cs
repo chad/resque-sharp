@@ -605,7 +605,8 @@ public class Redis : IDisposable {
             int count;
             if (int.TryParse(s, out count))
             {
-                // FIXME This is barfing?
+                if (count < 0)
+                    throw new ResponseException("There were no elements in the multibulk reply");
                 byte[][] result = new byte[count][];
 
                 for (int i = 0; i < count; i++)
@@ -676,7 +677,14 @@ public class Redis : IDisposable {
 
     public byte[][] GetMembersOfSet(string key)
     {
-        return SendDataCommandExpectMultiBulkReply(null, "SMEMBERS {0}\r\n", key);
+        try
+        {
+            return SendDataCommandExpectMultiBulkReply(null, "SMEMBERS {0}\r\n", key);
+        }
+        catch (ResponseException)
+        {
+            return new byte[][]{};
+        }
     }
 
     public bool RemoveFromSet(string key, byte[] member)
