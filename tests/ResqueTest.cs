@@ -137,7 +137,7 @@ namespace resque
         {
             ArrayList result = Resque.Peek("people", 1, 1);
             Assert.That("bob", Is.EqualTo((((Dictionary<string, object>)result[0]))["name"]));
-            
+
             result = Resque.Peek("people", 1, 2);
             Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("bob"));
             Assert.That(((Dictionary<string, object>)result[1])["name"], Is.EqualTo("mark"));
@@ -149,7 +149,7 @@ namespace resque
             result = Resque.Peek("people", 2, 1);
             Assert.That(((Dictionary<string, object>)result[0])["name"], Is.EqualTo("mark"));
 //TODO
-            //Assert.That(Resque.Peek("people", 3), Is.Null);
+            Assert.That(Resque.Peek("people", 3), Is.Null);
         }
         internal void EnqueueUninferrableJob()
         {

@@ -261,7 +261,7 @@ public class Redis : IDisposable {
 		var s = args != null && args.Length > 0 ? String.Format (cmd, args) : cmd;
 		byte [] r = Encoding.UTF8.GetBytes (s);
 		try {
-            //Log("S: " + log);
+            //Log("S: " + s);
 			socket.Send (r);
 		} catch (SocketException){
 			// timeout;
@@ -605,6 +605,7 @@ public class Redis : IDisposable {
             int count;
             if (int.TryParse(s, out count))
             {
+                // FIXME This is barfing?
                 byte[][] result = new byte[count][];
 
                 for (int i = 0; i < count; i++)

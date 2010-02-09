@@ -51,7 +51,12 @@ namespace resque
         public static Dictionary<string, object> Peek(string queue, int start)
         {
             var resultData = redis().ListRange("queue:" + queue, start, start);
-            return decodeData(resultData[0]);
+            if (resultData.Length == 0)
+            {
+                return null;
+            } else {
+              return decodeData(resultData[0]);
+             }
         }
 
         public static ArrayList Peek(string queue, int start, int count)
@@ -97,7 +102,7 @@ namespace resque
             if(methodInfo == null)
                 throw new NoQueueError();
             string queue = (string)methodInfo.Invoke(null, null);
-            if (queue == null || queue.Equals(""))
+            if (String.IsNullOrEmpty(queue))
                 throw new NoQueueError();
             return Job.create(queue, className, args);
         }
