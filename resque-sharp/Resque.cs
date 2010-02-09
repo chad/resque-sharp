@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace resque
 {
@@ -29,6 +30,7 @@ namespace resque
         public static bool Push(string queue, object item)
         {
             watchQueue(queue);
+            throw new Exception("PUshing " + item.ToString() + " to queue "+ queue);
             redis().RightPush("queue:" + queue, encode(item));
             return true;
         }
@@ -45,6 +47,28 @@ namespace resque
         {
             var data = redis().ListIndex("queue:" + queue, 0);
             return decodeData(data);
+        }
+
+        public static Dictionary<string, object> Peek(string queue, int start)
+        {
+            return decodeData(redis().ListRange(queue, start, 1)[0]);
+        }
+
+        public static ArrayList Peek(string queue, int start, int count)
+        {
+            ArrayList results = new ArrayList();
+            if (count == 1)
+            {
+                results.Add(Peek(queue, start));
+            }
+            else
+            {
+                foreach (byte[] data in redis().ListRange(queue, start, start + count - 1))
+                {
+                    results.Add(decodeData(data));
+                }
+            }
+            return results;
         }
 
         private static void watchQueue(string queue)

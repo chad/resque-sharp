@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace resque
 {
@@ -131,6 +132,13 @@ namespace resque
             Assert.That(Resque.size("people"), Is.EqualTo(3));
         }
 
+        [Test]
+        public void CanPeekAtMultipleItemsOnQueue()
+        {
+            ArrayList result = Resque.Peek("people", 1, 1);
+            Assert.That("ooo", Is.Empty);
+            Assert.That("bobs", Is.EqualTo((((Dictionary<string, object>)result[0]))["name"]));
+        }
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);
