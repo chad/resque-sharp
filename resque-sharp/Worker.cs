@@ -145,7 +145,10 @@ namespace resque
         {
             return state() == "working";
         }
-
+        public object IsIdle()
+        {
+            return state() == "idle";
+        }
         public string state()
         {
             return Resque.redis().ContainsKey("resque:worker:" + workerId()) ? "working" : "idle";
@@ -155,5 +158,7 @@ namespace resque
         {
             return "FIXME";
         }
+
+
     }
 }

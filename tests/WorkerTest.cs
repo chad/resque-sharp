@@ -32,5 +32,12 @@ namespace resque
             worker.work(0, (Job Job) => {Assert.That(worker.IsWorking(), Is.True); return true;});
         }
 
+        [Test]
+        public void KnowsWhenItIsIdle()
+        {
+            worker.work(0);
+            Assert.That(worker.IsIdle(), Is.True);
+        }
+
     }
 }
