@@ -39,5 +39,14 @@ namespace resque
             Assert.That(worker.IsIdle(), Is.True);
         }
 
+        [Test]
+        public void KnowsWhoIsWorking()
+        {
+            worker.work(0, 
+                (Job job) => { 
+                    Assert.That(Resque.working()[0].workerId(), Is.EqualTo(worker.workerId())); return true; 
+                });
+        }
+
     }
 }

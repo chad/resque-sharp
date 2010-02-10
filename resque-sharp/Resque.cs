@@ -29,6 +29,11 @@ namespace resque
             return staticRedis;
         }
 
+        public static Worker[] working()
+        {
+            return Worker.working();
+        }
+
         public static bool Push(string queue, object item)
         {
             watchQueue(queue);
@@ -167,6 +172,8 @@ namespace resque
             }
         }
         #endregion
+
+
 
 
 
