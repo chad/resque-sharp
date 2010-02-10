@@ -183,7 +183,6 @@ namespace resque
 
         private static Worker find(string id)
         {
-Console.WriteLine("CEF: got id " +  id);
             if (isExisting(id))
             {
                 string[] components = id.Split(":".ToCharArray());
