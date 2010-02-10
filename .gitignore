@@ -7,5 +7,6 @@ resque-sharp/obj/Release/*.dll
 resque-sharp/obj/Release/*.pdb
 tests/obj
 tests/bin
+tests/*.xml
 resque-sharp/obj/Release/resque-sharp.dll
 resque-sharp/obj/Release/resque-sharp.pdb
