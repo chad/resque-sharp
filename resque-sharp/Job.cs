@@ -50,7 +50,8 @@ namespace resque
             System.Reflection.MethodInfo methodInfo = PayloadClass().GetMethod("perform", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.FlattenHierarchy);
             if (methodInfo == null)
                 throw new NotImplementedException();
-            methodInfo.Invoke(null, args().ToArray());
+            object[] parameters = new object[1]{args().ToArray()};
+            methodInfo.Invoke(null, parameters);
 
         }
 

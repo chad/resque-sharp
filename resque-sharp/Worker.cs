@@ -61,11 +61,11 @@ namespace resque
                 setWorkingOn(job);
                 job.perform();
             }
-            catch (Exception e)
-            {
-                job.fail(e);
-                setFailed();
-            }
+            //catch (Exception e)
+            //{
+            //    job.fail(e);
+            //    setFailed();
+            //}
             finally
             {
                 if (block != null)
