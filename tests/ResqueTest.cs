@@ -5,9 +5,19 @@ using System.Text;
 using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using NUnit;
+
 
 namespace resque
 {
+    class NUnitConsoleRunner
+    {
+        [STAThread]
+        static void Main(string[] args)
+        {
+            NUnit.ConsoleRunner.Runner.Main(args);
+        }
+    }
 
     [TestFixture]
     public class ResqueTest
