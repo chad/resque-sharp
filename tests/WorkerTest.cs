@@ -48,5 +48,15 @@ namespace resque
                 });
         }
 
+        [Test]
+        public void InsertsItselfIntoTheWorkersListOnStartup()
+        {
+            worker.work(0,
+                (Job job) =>
+                {
+                    Assert.That(Resque.workers()[0].workerId(), Is.EqualTo(worker.workerId())); return true;
+                });
+        }
+
     }
 }

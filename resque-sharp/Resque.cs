@@ -34,6 +34,11 @@ namespace resque
             return Worker.working();
         }
 
+        public static Worker[] workers()
+        {
+            return Worker.all();
+        }
+
         public static bool Push(string queue, object item)
         {
             watchQueue(queue);
