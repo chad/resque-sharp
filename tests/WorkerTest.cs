@@ -58,5 +58,29 @@ namespace resque
                 });
         }
 
+        [Test]
+        public void RemovesItselfFromTheWorkersListOnShutdown()
+        {
+            worker.work(0,
+                (Job job) =>
+                {
+                    Assert.That(Resque.workers()[0].workerId(), Is.EqualTo(worker.workerId())); return true;
+                });
+            Assert.That(Resque.workers().Length, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void RemovesWorkerWithStringifiedId()
+        {
+            worker.work(0,
+                (Job job) =>
+                {
+                    var workerId = Resque.workers()[0].workerId();
+                    Resque.removeWorker(workerId);
+                    Assert.That(Resque.workers().Length, Is.EqualTo(0));
+                    return true;
+                });
+        }
+
     }
 }

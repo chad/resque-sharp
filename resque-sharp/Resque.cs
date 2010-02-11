@@ -39,6 +39,11 @@ namespace resque
             return Worker.all();
         }
 
+        public static void removeWorker(string workerId)
+        {
+            Worker.find(workerId).unregisterWorker();
+        }
+
         public static bool Push(string queue, object item)
         {
             watchQueue(queue);

@@ -51,7 +51,7 @@ namespace resque
             }
         }
 
-        private void unregisterWorker()
+        public void unregisterWorker()
         {
             Resque.redis().RemoveFromSet("resque:workers", workerId());
             Resque.redis().Remove("worker:" + workerId() + ":started");
@@ -180,7 +180,7 @@ namespace resque
             return workers.ToArray<Worker>();
         }
 
-        private static Worker find(string id)
+        public static Worker find(string id)
         {
             if (isExisting(id))
             {
