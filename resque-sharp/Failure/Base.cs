@@ -6,19 +6,19 @@ namespace resque
 {
     namespace Failure
     {
-        public class Base
+        public abstract class Base
         {
             public Exception exception { get; set; }
             public Worker worker { get; set; }
             public string queue { get; set; }
             public object payload { get; set; }
 
-            public Base(Exception in_exc, Worker in_wor, String in_queue, Object in_payload)
+            public Base(Exception exception, Worker worker, String queue, Object payload)
             {
-                exception = in_exc;
-                worker = in_wor;
-                queue = in_queue;
-                payload = in_payload;
+                this.exception = exception;
+                this.worker = worker;
+                this.queue = queue;
+                this.payload = payload;
             }
 
             //Declaring these as abstract to force subclass to
