@@ -53,7 +53,6 @@ namespace resque
 
         private void unregisterWorker()
         {
-            setDoneWorking();
             Resque.redis().RemoveFromSet("resque:workers", workerId());
             Resque.redis().Remove("worker:" + workerId() + ":started");
             // FIXME clear stats
