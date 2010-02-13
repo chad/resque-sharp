@@ -27,6 +27,52 @@ namespace resque
         //}
 
         [Test]
+        public void CanPeekAtFailedJobs()
+        {
+        }
+
+        [Test]
+        public void CanClearFailedJobs()
+        {
+        }
+
+        [Test]
+        public void CatchesExceptionalJobs()
+        {
+        }
+
+        [Test]
+        public void CanWorkOnMultipleQueues()
+        {
+        }
+
+        [Test]
+        public void CanWorkOnAllQueues()
+        {
+        }
+
+        [Test]
+        public void ProcesesAllQueuesInAlphabeticalOrder()
+        {
+        }
+
+        [Test]
+        public void HasAUniqueId()
+        {
+        }
+
+        [Test]
+        public void ComplainsIfNoQueuesAreGiven()
+        {
+        }
+
+        [Test]
+        public void FailsIfAJobClassHasNoPerformMethod()
+        {
+        }
+
+
+        [Test]
         public void KnowsWhenItsWorking()
         {
             worker.work(0, (Job Job) => {Assert.That(worker.IsWorking(), Is.True); return true;});
@@ -46,6 +92,43 @@ namespace resque
                 (Job job) => { 
                     Assert.That(Resque.working()[0].workerId(), Is.EqualTo(worker.workerId())); return true; 
                 });
+        }
+
+
+        [Test]
+        public void KeepsTrackOfHowManyJobsItHasProcessed()
+        {
+        }
+
+        [Test]
+        public void KeepsTrackOfHowManyFailuresItHasSeen()
+        {
+        }
+
+
+        [Test]
+        public void StatsAreErasedWhenTheWorkerGoesAway()
+        {
+        }
+
+        [Test]
+        public void KnowsWhenItIsStarted()
+        {
+        }
+
+        [Test]
+        public void KnowsWhetherItExistsOrNot()
+        {
+        }
+
+        [Test]
+        public void CanBeFound()
+        {
+            worker.work(0, (Job job) =>
+            {
+                Assert.That(Worker.find(worker.workerId()).workerId(), Is.EqualTo(worker.workerId()));
+                return true;
+            });
         }
 
         [Test]
@@ -81,6 +164,27 @@ namespace resque
                     return true;
                 });
         }
+
+        [Test]
+        public void ClearsItsStatusWhenNotWorkingOnAnything()
+        {
+        }
+
+
+        //[Test]
+        //public void RecordsWhatItIsWorkingOn()
+        //{
+        //    worker.work(0,
+        //        (Job job) =>
+        //        {
+        //            Dictionary<string, object> data = worker.job();
+        //            Dictionary<string, object> payload = (Dictionary<string, object>)data["payload"];
+        //           // throw new Exception(String.Join(",", data.Keys.ToArray<string>()));
+        //            Assert.That(data["class"], Is.EqualTo("resque.DummyJob"));
+        //            return true;
+        //        });
+        //}
+
 
     }
 }

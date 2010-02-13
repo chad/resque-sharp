@@ -7,7 +7,7 @@ namespace resque
 {
     namespace Failure
     {
-        class Failure
+        public class Failure
         {
             private Base backend;
 

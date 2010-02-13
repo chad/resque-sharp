@@ -16,6 +16,7 @@ namespace resque
     public class Resque
     {
         private static Redis staticRedis;
+        public static Failure.Failure failure { get; set; }
         public static void setRedis(Redis redis)
         {
             staticRedis = redis;

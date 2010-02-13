@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Collections;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace resque
 {
@@ -12,11 +13,13 @@ namespace resque
     {
         string[] queues;
         public string id { get; set; }
+        Type backendType;
 
         public Worker(params string[] queues)
         {
             this.queues = queues;
         }
+
 
         public void work(int interval)
         {
@@ -65,11 +68,11 @@ namespace resque
                 setWorkingOn(job);
                 job.perform();
             }
-            //catch (Exception e)
-            //{
-            //    job.fail(e);
-            //    setFailed();
-            //}
+            catch (Exception e)
+            {
+                job.fail(e);
+                setFailed();
+            }
             finally
             {
                 if (block != null)
@@ -82,7 +85,7 @@ namespace resque
 
         private void setFailed()
         {
-            // FIXME
+             // FIXME : do stats stuff
         }
 
         private void setWorkingOn(Job job)
@@ -90,6 +93,16 @@ namespace resque
             job.worker = this;
             string data = Resque.encode(new Dictionary<string, object>() { { "queue", job.queue }, { "run_at", currentTimeFormatted() }, { "payload", job.payload } });
             Resque.redis().Set("resque:worker:" + workerId(), data);
+        }
+
+        public Dictionary<string, object> job()
+        {
+            return (Dictionary<string,object>)Resque.decode(Resque.redis().Get("resque:worker:" + workerId()));
+        }
+
+        public Dictionary<string, object> payload()
+        {
+            return (Dictionary<string,object>)Resque.decode(job()["payload"].ToString());
         }
 
         private void setDoneWorking()
