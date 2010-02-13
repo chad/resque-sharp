@@ -207,6 +207,13 @@ namespace resque
 
         }
 
+
+        [Test]
+        public void AlwaysReturnsSomeKindOfFailureWhenAsked()
+        {
+            Assert.That(Resque.failure, Is.Not.Null);
+        }
+
         internal void EnqueueUninferrableJob()
         {
             Resque.enqueue("resque.UninferrableInvalidJob", 123);
@@ -215,6 +222,8 @@ namespace resque
         internal void TryToCreateJobWithNoClassName() {
             Job.create("jobs", null);
         }
+
+
 
     }
 }

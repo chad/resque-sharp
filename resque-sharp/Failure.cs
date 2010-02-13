@@ -9,37 +9,48 @@ namespace resque
     {
         public class Failure
         {
-            private Base backend;
+            private Type backendType;
 
-            //TODO: Not sure if this is right at all:
-            //The Ruby version passes in a hash and passes named fields to the base constructor
-            //Does this have to be persisted somehow?
-            public Failure(Base in_base)
+            public Failure(Type backendType)
             {
-                backend = in_base;
+                this.backendType = backendType;
+            }
+
+            public void create(Exception exception, Worker worker, String queue, Object payload)
+            {
+                Activator.CreateInstance(backendType, exception, worker, queue, payload);
             }
 
             public int count()
             {
-                return backend.count();
+                // invoke static method count
+                //return backend.count();
+                return (int)invokeOnBackend("count");
             }
 
             //TODO: Make a version of this method for paginating results
             public List<Base> all()
             {
-                return backend.all();
+                return (List<Base>)invokeOnBackend("all");
             }
 
             public string url()
             {
-                return backend.url();
+                return (string)invokeOnBackend("url");
             }
 
             public void clear()
             {
-                backend.clear();
+                invokeOnBackend("clear");
             }
 
+            public object invokeOnBackend(string methodName, params object[] args) {
+                System.Reflection.MethodInfo methodInfo = backendType.GetMethod(methodName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.FlattenHierarchy);
+                if (methodInfo == null)
+                    throw new NotImplementedException();
+       
+                return methodInfo.Invoke(null, args);
+            }
 
         }
     }

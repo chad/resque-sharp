@@ -16,7 +16,21 @@ namespace resque
     public class Resque
     {
         private static Redis staticRedis;
-        public static Failure.Failure failure { get; set; }
+        private static Failure.Failure Failure;
+
+        public static Failure.Failure failure { 
+            get{
+                if (Failure == null)
+                {
+                    Failure = new Failure.Failure(typeof(Failure.Base)); // FIXME: set to Redis backend when we have this.
+                }
+                return Failure;
+            }
+            set
+            {
+                Failure = value;
+            }
+        }
         public static void setRedis(Redis redis)
         {
             staticRedis = redis;
