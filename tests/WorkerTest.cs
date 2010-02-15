@@ -13,7 +13,8 @@ namespace resque
         [SetUp]
         public void Init()
         {
-            Resque.setRedis(new Redis("192.168.1.119", 6379));
+            String server = "ec2-184-73-9-230.compute-1.amazonaws.com";
+            Resque.setRedis(new Redis(server, 6379));
             Resque.redis().FlushAll();
             worker = new Worker("jobs");
             Job.create("jobs", "resque.DummyJob", 20, "/tmp");

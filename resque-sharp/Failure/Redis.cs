@@ -8,7 +8,17 @@ namespace resque.Failure
 {
     class Redis : Base
     {
-        public void save()
+        public Redis(Exception exception, Worker worker, String queue, Object payload)
+        {
+            this.exception = exception;
+            this.worker = worker;
+            this.queue = queue;
+            this.payload = payload;
+
+        }
+
+
+        public override void save()
         {
             Dictionary<string, object> data = new Dictionary<string,object>();
 
@@ -19,25 +29,30 @@ namespace resque.Failure
             data.Add("worker", worker.ToString());
             data.Add("queue", queue.ToString());
 
-            Resque.Push("failed", Resque.encode(data));
-
-            Resque.redis
-            
+            Resque.redis().RightPush("failed", Resque.encode(data));
+         
         }
 
-        public int count()
+        public override int count()
         {
-            return myRedis.count();
+            return Resque.redis().ListLength("failure");
         }
 
-        public List<Base> all()
+        public Byte[][] all(int start, int end)
         {
-            return myRedis.all();
+            return Resque.redis().ListRange("failed", start, end);
+
         }
 
-        public void clear()
+        public override string url()
         {
-            myRedis.delete("resque:failed");
+            throw new NotImplementedException();
+        }
+
+        public override void clear()
+        {
+            //Resque.redis().delete("resque:failed");
+            return;
         }
     }
 }

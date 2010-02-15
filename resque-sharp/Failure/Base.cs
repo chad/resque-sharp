@@ -21,6 +21,14 @@ namespace resque
                 this.payload = payload;
             }
 
+            public Base()
+            {
+                this.exception = null;
+                this.worker = null;
+                this.queue = null;
+                this.payload = null;
+            }
+
             //Declaring these as abstract to force subclass to
             //implement them
             public abstract void save();
