@@ -29,9 +29,9 @@ namespace resque
             }
 
             //TODO: Make a version of this method for paginating results
-            public List<Base> all()
+            public List<Backend> all()
             {
-                return (List<Base>)invokeOnBackend("all");
+                return (List<Backend>)invokeOnBackend("all");
             }
 
             public string url()

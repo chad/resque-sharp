@@ -6,7 +6,7 @@ using resque;
 
 namespace resque.Failure
 {
-    public class Redis : Base
+    public class Redis : Backend
     {
         public Redis(Exception exception, Worker worker, String queue, Object payload)
         {

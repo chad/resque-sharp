@@ -6,14 +6,14 @@ namespace resque
 {
     namespace Failure
     {
-        public abstract class Base
+        public abstract class Backend
         {
             public Exception exception { get; set; }
             public Worker worker { get; set; }
             public string queue { get; set; }
             public object payload { get; set; }
 
-            public Base(Exception exception, Worker worker, String queue, Object payload)
+            public Backend(Exception exception, Worker worker, String queue, Object payload)
             {
                 this.exception = exception;
                 this.worker = worker;
@@ -21,7 +21,7 @@ namespace resque
                 this.payload = payload;
             }
 
-            public Base()
+            public Backend()
             {
                 this.exception = null;
                 this.worker = null;
@@ -38,9 +38,9 @@ namespace resque
                 return 0;
             }
 
-            public virtual List<Base> all()
+            public virtual List<Backend> all()
             {
-                return new List<Base>();
+                return new List<Backend>();
             }
 
             public abstract string url();

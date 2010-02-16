@@ -22,7 +22,7 @@ namespace resque
             get{
                 if (Failure == null)
                 {
-                    Failure = new Failure.Failure(typeof(Failure.Base)); // FIXME: set to Redis backend when we have this.
+                    Failure = new Failure.Failure(typeof(Failure.Backend)); // FIXME: set to Redis backend when we have this.
                 }
                 return Failure;
             }
