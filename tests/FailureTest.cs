@@ -28,8 +28,9 @@ namespace resque
         {
             // This is the IP address of my computer running Redis. 
             server = "ec2-184-73-7-218.compute-1.amazonaws.com";
-            new Redis(server, 6379).FlushAll(); 
+            
             Resque.setRedis(new Redis(server, 6379));
+            Resque.redis().FlushAll(); 
 
             Exception ex = new Exception(testString);
             Worker worker = new Worker();
@@ -40,7 +41,7 @@ namespace resque
         }
 
         [Test]
-        public void canCreateFailure()
+        public void CanCreateFailure()
         {
 
             Assert.AreEqual(testString, myRedis.exception.Message);
@@ -53,19 +54,19 @@ namespace resque
         }
 
         [Test]
-        public void canGetURL()
+        public void CanGetURL()
         {
             Assert.AreEqual(myRedis.url(), server);
         }
 
         [Test]
-        public void canCheckEmptyQueue()
+        public void CanCheckEmptyQueue()
         {
             Assert.AreEqual(0, myRedis.count());
         }
 
         [Test]
-        public void canSaveOnItemToQueue()
+        public void CanSaveOnItemToQueue()
         {
             myRedis.save();
 
@@ -75,7 +76,7 @@ namespace resque
         }
 
         [Test]
-        public void canSaveRandomNumberOfItemsToQueue()
+        public void CanSaveRandomNumberOfItemsToQueue()
         {
             int random = new System.Random().Next(5, 20);
 
@@ -87,24 +88,40 @@ namespace resque
             Assert.AreEqual(random, myRedis.count());
         }
 
-        //TODO: Will this clear everything from all queues?
-        //  If so, should probably do one that just clears failures
         [Test]
-        public void canClear()
+        public void CanClear()
         {
-            int random = new System.Random().Next(5, 20);
+            int randNumOfJobs = new System.Random().Next(5, 20);
 
-            for (int i = 0; i < random; i++)
+            for (int i = 0; i < randNumOfJobs; i++)
             {
                 myRedis.save();
             }
 
-            Assert.AreEqual(random, myRedis.count());
+            Assert.AreEqual(randNumOfJobs, myRedis.count());
 
             myRedis.clear();
 
             Assert.AreEqual(0, myRedis.count());
         }
+
+        [Test]
+        public void CanRetrieveAllKeys()
+        {
+            int randNumOfJobs = new System.Random().Next(5, 20);
+
+            for (int i = 0; i < randNumOfJobs; i++)
+            {
+                myRedis.save();
+            }
+
+            Byte[][] allKeys = myRedis.all(0, randNumOfJobs);
+
+            Assert.AreEqual(allKeys.Length, randNumOfJobs);
+
+        }
+
+
 
     }
 }

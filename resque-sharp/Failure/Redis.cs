@@ -28,18 +28,17 @@ namespace resque.Failure
             data.Add("worker", worker.ToString());
             data.Add("queue", queue.ToString());
 
-            Resque.Push("failed", data);
-         
+            Resque.redis().RightPush("resque:failed", Resque.encode(data));
         }
 
         public override int count()
         {
-            return Resque.size("failed");
+            return Resque.redis().ListLength("resque:failed");
         }
 
         public Byte[][] all(int start, int end)
         {
-            return Resque.redis().ListRange("failed", start, end);
+            return Resque.redis().ListRange("resque:failed", start, end);
         }
 
         public override string url()
@@ -47,9 +46,10 @@ namespace resque.Failure
             return Resque.redis().Host;
         }
 
+        //TODO: Redo this to delete the resque:failure queue from the redis object
         public override void clear()
         {
-            Resque.redis().FlushAll();
+            Resque.redis().Remove("resque:failed");
         }
     }
 }
