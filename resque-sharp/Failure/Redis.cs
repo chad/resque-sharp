@@ -6,7 +6,7 @@ using resque;
 
 namespace resque.Failure
 {
-    class Redis : Base
+    public class Redis : Base
     {
         public Redis(Exception exception, Worker worker, String queue, Object payload)
         {
@@ -29,13 +29,16 @@ namespace resque.Failure
             data.Add("worker", worker.ToString());
             data.Add("queue", queue.ToString());
 
-            Resque.redis().RightPush("failed", Resque.encode(data));
+            //Resque.redis().RightPush("failed", Resque.encode(data));
+
+            Resque.Push("failed", data);
          
         }
 
         public override int count()
         {
-            return Resque.redis().ListLength("failure");
+            //return Resque.redis().ListLength("resque:failed");
+            return Resque.size("failed");
         }
 
         public Byte[][] all(int start, int end)

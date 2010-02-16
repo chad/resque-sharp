@@ -25,7 +25,7 @@ namespace resque
         [SetUp]
         public void Init()
         {
-            String server = "ec2-184-73-9-230.compute-1.amazonaws.com";
+            String server = "ec2-184-73-7-218.compute-1.amazonaws.com";
             new Redis(server, 6379).FlushAll(); // This is the IP address of my computer running Redis. 
             Resque.setRedis(new Redis(server, 6379));
             Resque.Push("people", new Dictionary<string, string>(){{"name", "chris"}});
