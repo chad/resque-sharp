@@ -20,7 +20,7 @@ namespace resque
 
         private string server;
         private Failure.Redis myRedis;
-        private String testString = "failure";
+        private String testString = "failed";
         private Object payload;
 
         [SetUp]
@@ -65,7 +65,7 @@ namespace resque
         }
 
         [Test]
-        public void canCheckOneItemQueue()
+        public void canSaveOnItemToQueue()
         {
             myRedis.save();
 
@@ -75,7 +75,22 @@ namespace resque
         }
 
         [Test]
-        public void canSaveRandomNumberOfItems()
+        public void canSaveRandomNumberOfItemsToQueue()
+        {
+            int random = new System.Random().Next(5, 20);
+
+            for (int i = 0; i < random; i++)
+            {
+                myRedis.save();
+            }
+
+            Assert.AreEqual(random, myRedis.count());
+        }
+
+        //TODO: Will this clear everything from all queues?
+        //  If so, should probably do one that just clears failures
+        [Test]
+        public void canClear()
         {
             int random = new System.Random().Next(5, 20);
 
@@ -86,7 +101,9 @@ namespace resque
 
             Assert.AreEqual(random, myRedis.count());
 
+            myRedis.clear();
 
+            Assert.AreEqual(0, myRedis.count());
         }
 
     }

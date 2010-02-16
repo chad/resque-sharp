@@ -17,7 +17,6 @@ namespace resque.Failure
 
         }
 
-
         public override void save()
         {
             Dictionary<string, object> data = new Dictionary<string,object>();
@@ -29,33 +28,28 @@ namespace resque.Failure
             data.Add("worker", worker.ToString());
             data.Add("queue", queue.ToString());
 
-            //Resque.redis().RightPush("failed", Resque.encode(data));
-
             Resque.Push("failed", data);
          
         }
 
         public override int count()
         {
-            //return Resque.redis().ListLength("resque:failed");
             return Resque.size("failed");
         }
 
         public Byte[][] all(int start, int end)
         {
             return Resque.redis().ListRange("failed", start, end);
-
         }
 
         public override string url()
         {
-            throw new NotImplementedException();
+            return Resque.redis().Host;
         }
 
         public override void clear()
         {
-            //Resque.redis().delete("resque:failed");
-            return;
+            Resque.redis().FlushAll();
         }
     }
 }
