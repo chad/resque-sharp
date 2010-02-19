@@ -9,11 +9,19 @@ using System.Collections;
 
 namespace resque
 {
+
+
     public class Job
     {
         public Dictionary<string, object> payload { get; set; }
         public string queue { get; set; }
         public Worker worker{get; set;}
+
+        public Job()
+        {
+            throw new NotImplementedException();
+        }
+
         public Job(string queue, Dictionary<string, object> payload)
         {
             this.queue = queue;
@@ -104,9 +112,8 @@ namespace resque
 
         internal void fail(Exception e)
         {
-            throw e;
-            throw new Exception("O HAI");
-            throw new NotImplementedException();
+            Failure.Redis failure = new Failure.Redis(e, worker, queue, payload);
+            failure.save();
         }
     }
 

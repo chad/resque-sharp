@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Failure.cs" />
-    <Compile Include="Failure\Base.cs" />
+    <Compile Include="Failure\Backend.cs" />
     <Compile Include="Failure\Redis.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

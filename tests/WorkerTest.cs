@@ -9,6 +9,15 @@ namespace resque
     [TestFixture]
     public class WorkerTest
     {
+        class NUnitConsoleRunner
+        {
+            [STAThread]
+            static void Main(string[] args)
+            {
+                NUnit.ConsoleRunner.Runner.Main(args);
+            }
+        }
+
         private Worker worker;
         [SetUp]
         public void Init()
@@ -20,16 +29,18 @@ namespace resque
             Job.create("jobs", "resque.DummyJob", 20, "/tmp");
         }
 
-        //[Test]
-        //public void CanFailJobs()
-        //{
-        //    Job.create("jobs", "resque.BadJob");
-        //    worker.work(0);
-        //}
+        [Test]
+        public void CanFailJobs()
+        {
+            Job.create("jobs", "resque.BadJob");
+            worker.work(0);
+            Assert.AreEqual(1, Resque.failure.count());
+        }
 
         [Test]
         public void CanPeekAtFailedJobs()
         {
+
         }
 
         [Test]
