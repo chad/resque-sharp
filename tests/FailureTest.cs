@@ -28,7 +28,8 @@ namespace resque
         {
             // This is the IP address of my computer running Redis. 
             server = "ec2-184-73-7-218.compute-1.amazonaws.com";
-            
+            //server = "192.168.56.102";
+
             Resque.setRedis(new Redis(server, 6379));
             Resque.redis().FlushAll(); 
 
@@ -52,17 +53,16 @@ namespace resque
             Assert.AreEqual(temp, payload);
 
         }
-
         [Test]
         public void CanGetURL()
         {
-            Assert.AreEqual(myRedis.url(), server);
+            Assert.AreEqual(Resque.failure.url(), server);
         }
 
         [Test]
         public void CanCheckEmptyQueue()
         {
-            Assert.AreEqual(0, myRedis.count());
+            Assert.AreEqual(0, Resque.failure.count());
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace resque
         {
             myRedis.save();
 
-            int count = myRedis.count();
+            int count = Resque.failure.count();
             Assert.AreEqual(1, count);
 
         }
@@ -85,7 +85,7 @@ namespace resque
                 myRedis.save();
             }
 
-            Assert.AreEqual(random, myRedis.count());
+            Assert.AreEqual(random, Resque.failure.count());
         }
 
         [Test]
@@ -98,11 +98,11 @@ namespace resque
                 myRedis.save();
             }
 
-            Assert.AreEqual(randNumOfJobs, myRedis.count());
+            Assert.AreEqual(randNumOfJobs, Resque.failure.count());
 
-            myRedis.clear();
+            Resque.failure.clear();
 
-            Assert.AreEqual(0, myRedis.count());
+            Assert.AreEqual(0, Resque.failure.count());
         }
 
         [Test]
@@ -115,13 +115,11 @@ namespace resque
                 myRedis.save();
             }
 
-            Byte[][] allKeys = myRedis.all(0, randNumOfJobs);
+            Byte[][] allKeys = Resque.failure.all(0, randNumOfJobs);
 
             Assert.AreEqual(allKeys.Length, randNumOfJobs);
 
         }
-
-
 
     }
 }

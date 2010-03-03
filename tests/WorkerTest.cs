@@ -19,14 +19,18 @@ namespace resque
         }
 
         private Worker worker;
+        string server;
+
         [SetUp]
         public void Init()
         {
-            String server = "ec2-184-73-7-218.compute-1.amazonaws.com";
+            server = "ec2-184-73-7-218.compute-1.amazonaws.com";
+            //string server = "192.168.56.102";
+
             Resque.setRedis(new Redis(server, 6379));
             Resque.redis().FlushAll();
             worker = new Worker("jobs");
-            Job.create("jobs", "resque.DummyJob", 20, "/tmp");
+            //Job.create("jobs", "resque.DummyJob", 20, "/tmp");
         }
 
         [Test]
@@ -40,27 +44,74 @@ namespace resque
         [Test]
         public void CanPeekAtFailedJobs()
         {
+            for (int i = 0; i < 10; i++)
+            {
+                Job.create("jobs", "resque.BadJob");
+            }
+            worker.work(0);
+
+            Assert.AreEqual(10, Resque.failure.count());
+
+            Byte[][] b = null;
+
+            Assert.AreEqual(Resque.failure.all().Length, 10);
 
         }
 
         [Test]
         public void CanClearFailedJobs()
         {
+            Job.create("jobs", "resque.BadJob");
+            worker.work(0);
+            Assert.AreEqual(1, Resque.failure.count());
+            Resque.failure.clear();
+            Assert.AreEqual(0, Resque.failure.count());
         }
 
         [Test]
         public void CatchesExceptionalJobs()
         {
+            Job.create("jobs", "resque.BadJob");
+            Job.create("jobs", "resque.BadJob");
+            worker.work(0);
+            worker.work(0);
+            worker.work(0);
+
+            Assert.AreEqual(2, Resque.failure.count());
         }
 
         [Test]
         public void CanWorkOnMultipleQueues()
         {
+            Job.create("high", "resque.GoodJob");
+            Job.create("critical", "resque.GoodJob");
+
+            worker = new Worker(new string[] {"critical", "high" });
+
+            worker.process();
+            Assert.AreEqual(Resque.size("high"), 1);
+            Assert.AreEqual(Resque.size("critical"), 0);
+
+            worker.process();
+            Assert.AreEqual(Resque.size("high"), 0);
+
         }
 
         [Test]
         public void CanWorkOnAllQueues()
         {
+            Job.create("high", "resque.GoodJob");
+            Job.create("critical", "resque.GoodJob");
+            Job.create("blahblah", "resque.GoodJob");
+
+            worker = new Worker(new string[] { "*" });
+
+            worker.work(0);
+
+            Assert.AreEqual(Resque.size("high"), 0);
+            Assert.AreEqual(Resque.size("critical"), 0);
+            Assert.AreEqual(Resque.size("blahblah"), 0);
+
         }
 
         [Test]
@@ -197,6 +248,6 @@ namespace resque
         //        });
         //}
 
-
+        
     }
 }

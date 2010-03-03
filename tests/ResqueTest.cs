@@ -27,6 +27,8 @@ namespace resque
         public void Init()
         {
             String server = "ec2-184-73-7-218.compute-1.amazonaws.com";
+            
+            //String server = "192.168.56.102";
             new Redis(server, 6379).FlushAll(); // This is the IP address of my computer running Redis. 
             Resque.setRedis(new Redis(server, 6379));
             Resque.Push("people", new Dictionary<string, string>(){{"name", "chris"}});
@@ -224,8 +226,6 @@ namespace resque
         internal void TryToCreateJobWithNoClassName() {
             Job.create("jobs", null);
         }
-
-
 
     }
  

@@ -83,6 +83,20 @@ namespace resque
             }
         }
 
+        public void process()
+        {
+            Job job = reserve();
+
+            if(job != null)
+            {
+                process(job, null);
+            }
+            
+        }
+
+
+
+
         private void setFailed()
         {
              // FIXME : do stats stuff

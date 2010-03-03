@@ -31,23 +31,28 @@ namespace resque.Failure
             Resque.redis().RightPush("resque:failed", Resque.encode(data));
         }
 
-        public override int count()
+        public static int count()
         {
             return Resque.redis().ListLength("resque:failed");
         }
 
-        public Byte[][] all(int start, int end)
+        public static Byte[][] all(int start, int end)
         {
             return Resque.redis().ListRange("resque:failed", start, end);
         }
 
-        public override string url()
+        public static Byte[][] all()
+        {
+            return Resque.redis().ListRange("resque:failed", 0, Resque.redis().ListLength("resque:failed"));
+        }
+
+        public static string url()
         {
             return Resque.redis().Host;
         }
 
         //TODO: Redo this to delete the resque:failure queue from the redis object
-        public override void clear()
+        public static void clear()
         {
             Resque.redis().Remove("resque:failed");
         }

@@ -159,6 +159,19 @@ namespace resque
         }
     }
 
+    public class GoodJob
+    {
+        public static string queue()
+        {
+            return "tester";
+        }
+        public static void perform(params object[] args)
+        {
+            System.Threading.Thread.Sleep(1000);
+            return;
+        }
+    }
+
 
     public class UninferrableInvalidJob
     {
