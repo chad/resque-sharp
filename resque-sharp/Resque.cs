@@ -170,6 +170,7 @@ namespace resque
         }
 
 
+
         #region encoding
         public static string encode(object item)
         {
@@ -200,6 +201,16 @@ namespace resque
 
 
 
+
+
+    }
+
+    public class info
+    {
+        public int Workers
+        {
+            get { return Resque.workers().Length; }
+        }
 
 
     }

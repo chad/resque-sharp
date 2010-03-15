@@ -80,6 +80,7 @@
     <Compile Include="FailureTest.cs" />
     <Compile Include="ResqueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatTest.cs" />
     <Compile Include="WorkerTest.cs" />
   </ItemGroup>
   <ItemGroup>

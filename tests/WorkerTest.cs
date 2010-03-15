@@ -122,6 +122,7 @@ namespace resque
         [Test]
         public void HasAUniqueId()
         {
+
         }
 
         [Test]
@@ -161,6 +162,15 @@ namespace resque
         [Test]
         public void KeepsTrackOfHowManyJobsItHasProcessed()
         {
+            /*int random = new System.Random().Next(5, 20);
+
+            for (int i = 0; i < random; i++)
+            {
+                Job.create("jobs", "resque.BadJob");
+            }
+
+            Assert.AreEqual(random, worker.processed());
+            */
         }
 
         [Test]
