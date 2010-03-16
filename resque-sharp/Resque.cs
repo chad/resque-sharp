@@ -207,11 +207,49 @@ namespace resque
 
     public class info
     {
-        public int Workers
+        /*
+              :pending => queues.inject(0) { |m,k| m + size(k) },
+              DONE :processed => Stat[:processed],
+              DONE :queues => queues.size,
+              DONE :workers => workers.size.to_i,
+              DONE :working => working.size,
+              DONE :failed => Stat[:failed],
+              DONE :servers => [redis.server]
+         */
+        public static int Workers
         {
             get { return Resque.workers().Length; }
         }
 
+        public static int Processed
+        {
+            get { return Stat.get("processed"); }
+        }
+
+        public static int Failed
+        {
+            get { return Stat.get("failed"); }
+        }
+
+        public static string Servers
+        {
+            get { return Resque.redis().Host; }
+        }
+
+        public static int Queues
+        {
+            get { return Resque.queues().Length; }
+        }
+
+        public static int Working
+        {
+            get { return Resque.working().Length; }
+        }
+
+        public static string[] Pending
+        {
+            get { return Resque.queues(); }
+        }
 
     }
 }

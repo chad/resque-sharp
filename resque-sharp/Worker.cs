@@ -20,6 +20,22 @@ namespace resque
             this.queues = queues;
         }
 
+        public Worker(string queue)
+        {
+            string[] queues = null;
+
+            if (queue == "*")
+            {
+                queues = Resque.queues();
+            }
+            else
+            {
+                queues = new string[] { queue };
+            }
+
+            this.queues = queues;
+        }
+
 
         public void work(int interval)
         {
@@ -100,6 +116,7 @@ namespace resque
         private void setFailed()
         {
              // FIXME : do stats stuff
+            resque.Stat.increment("failure");
         }
 
         private void setWorkingOn(Job job)

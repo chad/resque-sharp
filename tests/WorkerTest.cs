@@ -104,9 +104,13 @@ namespace resque
             Job.create("critical", "resque.GoodJob");
             Job.create("blahblah", "resque.GoodJob");
 
-            worker = new Worker(new string[] { "*" });
+            worker = new Worker("*");
 
             worker.work(0);
+
+            Console.WriteLine(Resque.size("high"));
+            Console.WriteLine(Resque.size("critical"));
+            Console.WriteLine(Resque.size("blahblah"));
 
             Assert.AreEqual(Resque.size("high"), 0);
             Assert.AreEqual(Resque.size("critical"), 0);
@@ -117,6 +121,14 @@ namespace resque
         [Test]
         public void ProcesesAllQueuesInAlphabeticalOrder()
         {
+            Job.create("high", "resque.GoodJob");
+            Job.create("critical", "resque.GoodJob");
+            Job.create("blahblah", "resque.GoodJob");
+
+            worker = new Worker("*");
+
+
+
         }
 
         [Test]
