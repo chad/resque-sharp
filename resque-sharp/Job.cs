@@ -30,7 +30,13 @@ namespace resque
 
         public Type PayloadClass()
         {
-            return Type.GetType((string)payload["class"], true); 
+            string className = (string)payload["class"];
+            if (Resque.getAssemblyQualifier() != null)
+            {
+                className += Resque.getAssemblyQualifier();
+            }
+           
+            return Type.GetType(className, true);
         }
 
         public static bool create(string queue, string className, params object[] args)

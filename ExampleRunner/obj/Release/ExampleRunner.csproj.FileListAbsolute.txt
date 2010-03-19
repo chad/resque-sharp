@@ -1,0 +1,10 @@
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\ExampleRunner.exe
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\ExampleRunner.pdb
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\resque-sharp.dll
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\Newtonsoft.Json.Net20.dll
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\resque-sharp.pdb
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\Newtonsoft.Json.Net20.pdb
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\bin\Release\Newtonsoft.Json.Net20.xml
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\obj\Release\ExampleRunner.exe
+C:\Users\Chad\src\o\resque-sharp\ExampleRunner\obj\Release\ExampleRunner.pdb

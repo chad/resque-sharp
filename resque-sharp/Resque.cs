@@ -15,8 +15,20 @@ namespace resque
 
     public class Resque
     {
+        private static string staticAssemblyQualifier;
         private static Redis staticRedis;
         private static Failure.Failure Failure;
+
+        public static string getAssemblyQualifier()
+        {
+            return staticAssemblyQualifier;
+        }
+
+
+        public static void setAssemblyQualifier(string assemblyQualifier)
+        {
+            staticAssemblyQualifier = assemblyQualifier;
+        }
 
         public static Failure.Failure failure { 
             get{
