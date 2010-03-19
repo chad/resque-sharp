@@ -127,7 +127,7 @@ namespace resque
 
             worker = new Worker("*");
 
-            worker.work(0, (List<String> queueList) => { int a; });
+            //worker.work(0, (List<String> queueList) => { int a; });
 
 
         }
