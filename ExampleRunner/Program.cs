@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using resque;
+using System.Reflection;
 
 class DummyJob
 {
@@ -22,7 +23,11 @@ namespace ExampleRunner
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(resque.DummyJob.assemblyQualifiedName());
+            
             Type t = typeof(DummyJob);
+            Assembly.GetExecutingAssembly();
+
             Console.WriteLine(t.AssemblyQualifiedName);
             string assemblyQualification = ", ExampleRunner, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
             Resque.setAssemblyQualifier(assemblyQualification);

@@ -124,7 +124,6 @@ namespace resque
     }
 
 
-    // FIXME: These shouldn't have to be here. Need to figure out how to cleanly load from multiple assemblies dynamically
     public class DummyJob
     {
         public static string queue()
@@ -134,6 +133,11 @@ namespace resque
         public static void perform(params object[] args)
         {
             Console.WriteLine("This is the dummy job reporting in");
+        }
+
+        public static string assemblyQualifiedName()
+        {
+            return System.Reflection.Assembly.GetExecutingAssembly().FullName;
         }
         //public DummyJob(string queue, Dictionary<string,object> dictionary) : base(queue, dictionary)
         //{

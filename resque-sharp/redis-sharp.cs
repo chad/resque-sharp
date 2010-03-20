@@ -10,7 +10,7 @@
 //
 
 // temporarily forked for resque-sharp from http://github.com/migueldeicaza/redis-sharp for convenience
-#define DEBUG
+//#define DEBUG
 
 using System;
 using System.IO;
